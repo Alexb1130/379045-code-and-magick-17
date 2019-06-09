@@ -1,6 +1,6 @@
 'use strict';
 
-var GAP = 10;
+var OFFSET = 10;
 
 var cloud = {
   width: 420,
@@ -15,7 +15,7 @@ var font = {
   family: '16px PT Mono',
   offset: 15,
   height: 16,
-  lineHeight: 16 + GAP,
+  lineHeight: 16 + OFFSET,
   color: '#000'
 };
 
@@ -43,7 +43,7 @@ var getMaxElement = function (arr) {
 };
 
 window.renderStatistics = function (ctx, names, times) {
-  renderCloud(ctx, cloud.x + GAP, cloud.y + GAP, cloud.shadow);
+  renderCloud(ctx, cloud.x + OFFSET, cloud.y + OFFSET, cloud.shadow);
   renderCloud(ctx, cloud.x, cloud.y, cloud.color);
 
   ctx.fillStyle = font.color;
@@ -51,13 +51,13 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.font = font.family;
   ctx.fillText(
       'Ура вы победили!\n',
-      cloud.x + GAP,
-      cloud.y + GAP - font.offset + GAP + font.lineHeight
+      cloud.x + OFFSET,
+      cloud.y + OFFSET - font.offset + OFFSET + font.lineHeight
   );
   ctx.fillText(
       'Список результатов:',
-      cloud.x + GAP,
-      cloud.y + GAP + font.offset + font.lineHeight
+      cloud.x + OFFSET,
+      cloud.y + OFFSET + font.offset + font.lineHeight
   );
 
   var maxTime = getMaxElement(times);
@@ -69,12 +69,12 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillStyle = font.color;
     ctx.fillText(
         parseInt(times[i], 10),
-        cloud.x + GAP + font.offset + (histogram.colWidth + histogram.colOffset) * i,
+        cloud.x + OFFSET + font.offset + (histogram.colWidth + histogram.colOffset) * i,
         cloud.y + (font.lineHeight + histogram.colOffset) + histogram.height - (times[i] * histogram.height) / maxTime
     );
     ctx.fillText(
         names[i],
-        cloud.x + GAP + font.offset + (histogram.colWidth + histogram.colOffset) * i,
+        cloud.x + OFFSET + font.offset + (histogram.colWidth + histogram.colOffset) * i,
         cloud.y + cloud.height - font.height
     );
     if (names[i] === 'Вы') {
@@ -83,8 +83,8 @@ window.renderStatistics = function (ctx, names, times) {
       ctx.fillStyle = OTHER_PLAYERS_COLOR;
     }
     ctx.fillRect(
-        cloud.x + (GAP * 2.5) + (histogram.colWidth + histogram.colOffset) * i,
-        cloud.y + GAP + (font.lineHeight + histogram.colOffset) + histogram.height - (times[i] * histogram.height) / maxTime,
+        cloud.x + (OFFSET * 2.5) + (histogram.colWidth + histogram.colOffset) * i,
+        cloud.y + OFFSET + (font.lineHeight + histogram.colOffset) + histogram.height - (times[i] * histogram.height) / maxTime,
         histogram.colWidth,
         (times[i] * histogram.height) / maxTime
     );
