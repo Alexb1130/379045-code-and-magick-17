@@ -86,6 +86,18 @@ function popupKeyDownHandler(evt) {
   }
 }
 
+function validateFormField() {
+  if (userName.validity.tooShort) {
+    userName.setCustomValidity('имя персонажа не может содержать менее 2 символов');
+  } else if (userName.validity.tooLong) {
+    userName.setCustomValidity('максимальная длина имени персонажа — 25 символов');
+  } else if (userName.validity.valueMissing) {
+    userName.setCustomValidity('имя персонажа не может быть пустым');
+  } else {
+    userName.setCustomValidity('');
+  }
+}
+
 function customizeWizard(evt) {
   var wizardCoat = setupWizard.querySelector('.wizard-coat');
   var wizardEyes = setupWizard.querySelector('.wizard-eyes');
@@ -105,11 +117,12 @@ function customizeWizard(evt) {
   }
 }
 
-setupWizard.addEventListener('click', customizeWizard);
-
 setupOpen.addEventListener('click', openPopup);
 setupClose.addEventListener('click', closePopup);
 document.addEventListener('keydown', popupKeyDownHandler);
+
+userName.addEventListener('invalid', validateFormField);
+setupWizard.addEventListener('click', customizeWizard);
 
 document.querySelector('.setup-similar-list').appendChild(renderWizards());
 document.querySelector('.setup-similar').classList.remove('hidden');
