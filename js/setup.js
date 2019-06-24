@@ -66,6 +66,7 @@ function openPopup() {
 
 function closePopup() {
   setup.classList.add('hidden');
+  setup.removeAttribute('style');
 }
 
 function popupKeyDownHandler(evt) {
