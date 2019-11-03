@@ -23,21 +23,33 @@
     var setupFireball = setupWizard.querySelector('.setup-fireball');
 
     if (evt.target === wizardCoat) {
-      setupForm.elements['coat-color'].value = window.utils.getRandomElementArr(window.data.COAT_COLORS);
+      setupForm.elements['coat-color'].value = window.utils.getRandomElementArr(window.wizards.COAT_COLORS);
       evt.target.style.fill = setupForm.elements['coat-color'].value;
     }
     if (evt.target === wizardEyes) {
-      setupForm.elements['eyes-color'].value = window.utils.getRandomElementArr(window.data.EYES_COLORS);
+      setupForm.elements['eyes-color'].value = window.utils.getRandomElementArr(window.wizards.EYES_COLORS);
       evt.target.style.fill = setupForm.elements['eyes-color'].value;
     }
     if (evt.target === setupFireball) {
-      setupForm.elements['fireball-color'].value = window.utils.getRandomElementArr(window.data.FIREBALL_COLORS);
+      setupForm.elements['fireball-color'].value = window.utils.getRandomElementArr(window.wizards.FIREBALL_COLORS);
       evt.target.parentNode.style.background = setupForm.elements['fireball-color'].value;
     }
   }
 
   userName.addEventListener('invalid', validateFormField);
   setupWizard.addEventListener('click', customizeWizard);
+
+  setupForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(setupForm);
+
+    try {
+      window.backend.onSave(formData);
+      window.setup.closePopup();
+    } catch (e) {
+      console.error(e.message);
+    }
+  })
 
   window.userName = userName;
 

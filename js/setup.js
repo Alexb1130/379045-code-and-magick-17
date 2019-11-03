@@ -1,11 +1,12 @@
-'use strict';
+class Setup {
+
+}
 
 (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
+  var NUMBER_WIZARDS = 4;
 
-
-  var wizards = window.data.renderWizards();
   var setup = document.querySelector('.setup');
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = document.querySelector('.setup-close');
@@ -41,7 +42,18 @@
   setupClose.addEventListener('click', closePopup);
   document.addEventListener('keydown', popupKeyDownHandler);
 
-  document.querySelector('.setup-similar-list').appendChild(wizards);
-  document.querySelector('.setup-similar').classList.remove('hidden');
+  window.backend.onLoad(data => {
+    const wizardsArr = window.utils.generateRandomArr(data, NUMBER_WIZARDS);
+    const wizards = window.wizards.renderWizards(wizardsArr);
+    console.log(data,wizardsArr);
+
+
+    document.querySelector('.setup-similar-list').appendChild(wizards);
+    document.querySelector('.setup-similar').classList.remove('hidden');
+  })
+
+  window.setup = {
+    closePopup
+  };
 
 })();

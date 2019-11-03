@@ -1,23 +1,28 @@
-'use strict';
-
-(function () {
-
-  var generateRandomInt = function (min, max) {
-    var length = max - min + 1;
+class Utils {
+  generateRandomInt(min, max) {
+    const length = max - min + 1;
     return Math.floor(Math.random() * length + min);
-  };
+  }
 
-  var getRandomIndexArr = function (arr) {
-    return window.utils.generateRandomInt(0, arr.length - 1);
-  };
+  getRandomIndexArr(arr) {
+    return this.generateRandomInt(0, arr.length - 1);
+  }
 
-  var getRandomElementArr = function (arr) {
-    return arr[getRandomIndexArr(arr)];
-  };
+  getRandomElementArr(arr) {
+    return arr[this.getRandomIndexArr(arr)];
+  }
 
-  window.utils = {
-    generateRandomInt: generateRandomInt,
-    getRandomElementArr: getRandomElementArr,
-  };
+  generateRandomArr(arr, number) {
+    const arrCopy = arr.concat();
+    const randomArr = [];
 
-})();
+    for (let i = 0; i < number; i++) {
+      randomArr.push(arrCopy.splice(this.getRandomIndexArr(arrCopy), 1)[0]);
+    }
+
+    return randomArr;
+  }
+}
+
+window.utils = new Utils();
+
