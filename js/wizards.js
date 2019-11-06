@@ -21,10 +21,10 @@ class Wizard {
   }
 
   window.wizards = {
-    COAT_COLORS: COAT_COLORS,
-    EYES_COLORS: EYES_COLORS,
-    FIREBALL_COLORS: FIREBALL_COLORS,
-    renderWizards: renderWizards
+    COAT_COLORS,
+    EYES_COLORS,
+    FIREBALL_COLORS,
+    renderWizards
   };
 
 })();

@@ -11,6 +11,8 @@ class Setup {
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = document.querySelector('.setup-close');
 
+  var wizardsContainer = document.querySelector('.setup-similar-list');
+
   function openPopup() {
     setup.classList.remove('hidden');
   }
@@ -42,18 +44,22 @@ class Setup {
   setupClose.addEventListener('click', closePopup);
   document.addEventListener('keydown', popupKeyDownHandler);
 
-  window.backend.onLoad(data => {
-    const wizardsArr = window.utils.generateRandomArr(data, NUMBER_WIZARDS);
-    const wizards = window.wizards.renderWizards(wizardsArr);
-    console.log(data,wizardsArr);
+  window.backend.onLoad()
+    .then(data => {
 
+      const wizardsArr = window.utils.generateRandomArr(data, NUMBER_WIZARDS);
+      const wizards = window.wizards.renderWizards(wizardsArr);
 
-    document.querySelector('.setup-similar-list').appendChild(wizards);
-    document.querySelector('.setup-similar').classList.remove('hidden');
-  })
+      wizardsContainer.appendChild(wizards);
+      document.querySelector('.setup-similar').classList.remove('hidden');
+
+    })
+
 
   window.setup = {
-    closePopup
+    NUMBER_WIZARDS,
+    closePopup,
+    wizardsContainer
   };
 
 })();
